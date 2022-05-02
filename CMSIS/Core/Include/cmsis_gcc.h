@@ -26,10 +26,14 @@
 #define __CMSIS_GCC_H
 
 /* ignore some GCC warnings */
+#if defined(_MSC_VER)
+/* pass */
+#else
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wsign-conversion"
 #pragma GCC diagnostic ignored "-Wconversion"
 #pragma GCC diagnostic ignored "-Wunused-parameter"
+#endif
 
 /* Fallback for __has_builtin */
 #ifndef __has_builtin
