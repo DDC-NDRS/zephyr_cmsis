@@ -207,7 +207,7 @@ __STATIC_INLINE void ARM_MPU_Disable(void)
 #ifdef SCB_SHCSR_MEMFAULTENA_Msk
   SCB->SHCSR &= ~SCB_SHCSR_MEMFAULTENA_Msk;
 #endif
-  MPU->CTRL  &= ~MPU_CTRL_ENABLE_Msk;
+  MPU->CTRL = (MPU->CTRL & ~MPU_CTRL_ENABLE_Msk);
   __DSB();
   __ISB();
 }
