@@ -377,7 +377,7 @@ __STATIC_FORCEINLINE uint32_t __get_CONTROL(void) {
 }
 
 __STATIC_FORCEINLINE void __set_MSP(uint32_t topOfMainStack) {
-	/* pass */
+    /* pass */
 }
 
 __STATIC_FORCEINLINE uint32_t __RBIT(uint32_t value) {
@@ -410,6 +410,20 @@ __STATIC_FORCEINLINE uint8_t __CLZ(uint32_t value) {
     }
 
     return ((uint8_t)value);     // @TODO implement cmsis_msc.h
+}
+
+__STATIC_FORCEINLINE uint32_t __LDREXW(volatile uint32_t* addr) {
+    uint32_t result;
+
+    result = *addr;
+
+    return (result);
+}
+
+__STATIC_FORCEINLINE uint32_t __STREXW(uint32_t value, volatile uint32_t *addr) {
+    *addr = value;
+
+    return (0);
 }
 
 #else
