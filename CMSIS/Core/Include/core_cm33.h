@@ -2191,8 +2191,24 @@ typedef struct
   \brief      Definitions for base addresses, unions, and structures.
   @{
  */
+ /* Memory mapping of Core Hardware */
+#if defined(_MSC_VER) /* #CUSTOM@NDRS */
+#include "mcu_reg_stub.h"
+#endif
 
 /* Memory mapping of Core Hardware */
+#if defined(_MSC_VER) /* #CUSTOM@NDRS */
+  #define SCS_BASE            (0xE000E000UL)                             /*!< System Control Space Base Address */
+  #define ITM_BASE            (0xE0000000UL)                             /*!< ITM Base Address */
+  #define DWT_BASE            (0xE0001000UL)                             /*!< DWT Base Address */
+  #define TPI_BASE            (0xE0040000UL)                             /*!< TPI Base Address */
+  #define CoreDebug_BASE      (0xE000EDF0UL)                             /*!< \deprecated Core Debug Base Address */
+  #define DCB_BASE            (0xE000EDF0UL)                             /*!< DCB Base Address */
+  #define DIB_BASE            (0xE000EFB0UL)                             /*!< DIB Base Address */
+  #define SysTick_BASE        (SCS_BASE +  0x0010UL)                     /*!< SysTick Base Address */
+  #define NVIC_BASE           ((uintptr_t)ut_mcu_nvic_ptr)               /*!< NVIC Base Address */
+  #define SCB_BASE            ((uintptr_t)ut_mcu_scb_ptr)                /*!< System Control Block Base Address */
+#else
   #define SCS_BASE            (0xE000E000UL)                             /*!< System Control Space Base Address */
   #define ITM_BASE            (0xE0000000UL)                             /*!< ITM Base Address */
   #define DWT_BASE            (0xE0001000UL)                             /*!< DWT Base Address */
@@ -2203,6 +2219,7 @@ typedef struct
   #define SysTick_BASE        (SCS_BASE +  0x0010UL)                     /*!< SysTick Base Address */
   #define NVIC_BASE           (SCS_BASE +  0x0100UL)                     /*!< NVIC Base Address */
   #define SCB_BASE            (SCS_BASE +  0x0D00UL)                     /*!< System Control Block Base Address */
+#endif
 
   #define SCnSCB              ((SCnSCB_Type    *)     SCS_BASE         ) /*!< System control Register not in SCB */
   #define SCB                 ((SCB_Type       *)     SCB_BASE         ) /*!< SCB configuration struct */
@@ -2212,7 +2229,8 @@ typedef struct
   #define DWT                 ((DWT_Type       *)     DWT_BASE         ) /*!< DWT configuration struct */
   #define TPI                 ((TPI_Type       *)     TPI_BASE         ) /*!< TPI configuration struct */
   #define CoreDebug           ((CoreDebug_Type *)     CoreDebug_BASE   ) /*!< \deprecated Core Debug configuration struct */
-  #define DCB                 ((DCB_Type       *)     DCB_BASE         ) /*!< DCB configuration struct */
+  #define DCBx                ((DCB_Type       *)     DCB_BASE         ) /*!< DCB configuration struct */
+                                                                         /* #CUSTOM@NDRS : DCB -> DCBx for compatibility with MSVC */
   #define DIB                 ((DIB_Type       *)     DIB_BASE         ) /*!< DIB configuration struct */
 
   #if defined (__MPU_PRESENT) && (__MPU_PRESENT == 1U)
@@ -3018,7 +3036,7 @@ __STATIC_INLINE void DCB_SetAuthCtrl(uint32_t value)
 {
     __DSB();
     __ISB();
-    DCB->DAUTHCTRL = value;
+    DCBx->DAUTHCTRL = value;
     __DSB();
     __ISB();
 }
@@ -3031,7 +3049,7 @@ __STATIC_INLINE void DCB_SetAuthCtrl(uint32_t value)
  */
 __STATIC_INLINE uint32_t DCB_GetAuthCtrl(void)
 {
-    return (DCB->DAUTHCTRL);
+    return (DCBx->DAUTHCTRL);
 }
 
 
