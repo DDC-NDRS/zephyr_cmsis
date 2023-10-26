@@ -340,6 +340,14 @@ inline void __enable_irq(void) {
     __regPriMask &= ~0x01;
 }
 
+inline void __SEV(void) {
+    /* pass */
+}
+
+inline void __WFI(void) {
+    /* pass */
+}
+
 inline void __WFE(void) {
     /* pass */
 }
@@ -377,6 +385,10 @@ __STATIC_FORCEINLINE uint32_t __get_CONTROL(void) {
 }
 
 __STATIC_FORCEINLINE void __set_MSP(uint32_t topOfMainStack) {
+    /* pass */
+}
+
+__STATIC_FORCEINLINE void __set_MSPLIM(uint32_t MainStackPtrLimit) {
     /* pass */
 }
 
