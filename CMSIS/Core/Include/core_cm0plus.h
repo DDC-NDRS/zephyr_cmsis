@@ -646,7 +646,7 @@ typedef struct
 
 /* Memory mapping of Core Hardware */
 #if (__GTEST == 1U)
-#include "samc21_reg_stub.h"
+#include "mcu_reg_stub.h"
 
 #define SCS_BASE            (0xE000E000UL)                            /*!< System Control Space Base Address */
 #define SysTick_BASE        (ut_mcu_systick_ptr)                      /*!< SysTick Base Address */
