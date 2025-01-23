@@ -2208,7 +2208,7 @@ typedef struct
   #define CoreDebug_BASE      (0xE000EDF0UL)                             /*!< \deprecated Core Debug Base Address */
   #define DCB_BASE            (0xE000EDF0UL)                             /*!< DCB Base Address */
   #define DIB_BASE            (0xE000EFB0UL)                             /*!< DIB Base Address */
-  #define SysTick_BASE        (SCS_BASE +  0x0010UL)                     /*!< SysTick Base Address */
+  #define SysTick_BASE        ((uintptr_t)ut_mcu_systick_ptr)            /*!< SysTick Base Address */
   #define NVIC_BASE           ((uintptr_t)ut_mcu_nvic_ptr)               /*!< NVIC Base Address */
   #define SCB_BASE            ((uintptr_t)ut_mcu_scb_ptr)                /*!< System Control Block Base Address */
 #else
